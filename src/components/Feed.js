@@ -3,17 +3,21 @@ import TweetBox from './TweetBox';
 import Post from './Post';
 import './Feed.css';
 import db from './firebase';
-import {doc, onSnapshot, collection, query, where} from "firebase/firestore";
+import FlipMove from 'react-flip-move';
+import {getDocs, collection, query} from "firebase/firestore";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
-  // TODO: FIX SYNTAX ERROR HERE
   useEffect(() => {
     const q = query(collection(db,'posts'));
-    const result = onSnapshot(q, (querySnapshot) => (
-      setPosts("Data", querySnapshot.docs.map(doc => doc.data()))
-    ))  
+    const querySnapshot = getDocs(q);
+    querySnapshot
+    .then((doc) => {
+      setPosts(doc.docs.map(item => {
+        return item.data();
+      }))
+    });
   }, [])
 
   return (
@@ -24,7 +28,8 @@ function Feed() {
 
       <TweetBox />
 
-      {posts.map(post => 
+      <FlipMove>
+      {posts.map(post => (
         <Post
           displayName = {post.displayName}
           username = {post.username}
@@ -33,7 +38,8 @@ function Feed() {
           avatar = {post.avatar}
           image = {post.image}
         />
-      )}
+      ))}
+      </FlipMove>
       
 
     </div>
