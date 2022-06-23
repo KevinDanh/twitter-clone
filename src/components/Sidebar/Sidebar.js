@@ -10,7 +10,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import PersonIcon from '@mui/icons-material/Person';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-import SidebarOptions from "./SidebarOption";
+import SidebarOptions from './SidebarOption';
 import { Button } from "@mui/material";
 
 function Sidebar() {
